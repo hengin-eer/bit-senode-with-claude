@@ -12,7 +12,7 @@ export const useGame = (
   phase: GamePhase,
   setPhase: Dispatch<SetStateAction<GamePhase>>
 ) => {
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const [timer, setTimer] = useState<number | null>(null);
   const [remainingTime, setRemainingTime] = useState(TURN_DURATION);
 
   // 次のプレイヤーに移動する関数
@@ -136,7 +136,7 @@ export const useGame = (
   // タイマーの開始
   const startTimer = useCallback(() => {
     if (timer) clearTimeout(timer);
-    const newTimer = setTimeout(handleTimerEnd, TURN_DURATION);
+    const newTimer = setTimeout(handleTimerEnd, TURN_DURATION) as unknown as number;
     setTimer(newTimer);
   }, [handleTimerEnd, timer]);
 
